@@ -1,4 +1,4 @@
-package com.example.learn.java.hdfs;
+package com.example.learn.hdfs;
 
 import java.net.URI;
 
