@@ -4,6 +4,8 @@ public class Consts {
 
 	// ==========================================================================
 	public static final String FILE_SEPARATOR = "/";
+	
+	public static final String GROUP_NAME = "supergroup";
 
 	public static final String USER_NAME = "zhouwei";
 	public static final String USER_HOME = "/user/" + USER_NAME;

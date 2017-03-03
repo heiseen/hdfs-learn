@@ -31,7 +31,7 @@ public class ShowFileStatusTest {
 		}
 	}
 
-	// Assert.assertThat(stat, Matchers.is();
+	// Assert.assertThat(stat, Matchers.is());
 
 	@Test
 	public void fileStatusForFile() throws IOException {
@@ -42,15 +42,26 @@ public class ShowFileStatusTest {
 		Assert.assertThat(stat.getModificationTime(),
 				Matchers.is(Matchers.lessThanOrEqualTo(System.currentTimeMillis())));
 		Assert.assertThat(stat.getReplication(), Matchers.is((short) 3));
-		 Assert.assertThat(stat.getBlockSize(), Matchers.is(Consts.HDFS_BLOCK_SIZE));
+		Assert.assertThat(stat.getBlockSize(), Matchers.is(Consts.HDFS_BLOCK_SIZE));
+		Assert.assertThat(stat.getOwner(), Matchers.is(Consts.USER_NAME));
+		Assert.assertThat(stat.getGroup(), Matchers.is(Consts.GROUP_NAME));
+		Assert.assertThat(stat.getPermission().toString(), Matchers.is("rw-r--r--"));
 	}
 
 	@Test
 	public void testDir() throws IOException {
-		Path file = new Path(Consts.POM_XML_HDFS_URI);
+		Path file = new Path(Consts.FILE_SEPARATOR);
 		FileStatus stat = fs.getFileStatus(file);
-		Assert.assertThat(stat.getPath().toUri().getPath(), Matchers.is(Consts.POM_XML_PATH));
-
+		Assert.assertThat(stat.getPath().toUri().getPath(), Matchers.is(Consts.FILE_SEPARATOR));
+		Assert.assertThat(stat.isDirectory(), Matchers.is(true));
+		Assert.assertThat(stat.getLen(), Matchers.is(0L));
+		Assert.assertThat(stat.getModificationTime(),
+				Matchers.is(Matchers.lessThanOrEqualTo(System.currentTimeMillis())));
+		Assert.assertThat(stat.getReplication(), Matchers.is((short) 0));
+		Assert.assertThat(stat.getBlockSize(), Matchers.is(0L));
+		Assert.assertThat(stat.getOwner(), Matchers.is(Consts.USER_NAME));
+		Assert.assertThat(stat.getGroup(), Matchers.is(Consts.GROUP_NAME));
+		Assert.assertThat(stat.getPermission().toString(), Matchers.is("rwxr-xr-x"));
 	}
 
 }
