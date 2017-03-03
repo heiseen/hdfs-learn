@@ -11,6 +11,8 @@ public class Consts {
 	public static final String HDFS_URI_PREFIX = "hdfs://localhost:9000" + USER_HOME;
 
 	// ==========================================================================
+	public static final long HDFS_BLOCK_SIZE = 128 * 1024 * 1024;
+	
 	public static final String NUM_ZERO = "0";
 
 	public static final String POM_XML = "pom.xml";
