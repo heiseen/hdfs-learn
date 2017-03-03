@@ -12,7 +12,7 @@ import com.example.learn.hdfs.consts.Consts;
 
 public class FileSystemCat {
 
-	private static final String FILE_URI = Consts.HDFS_URI_PREFIX + Consts.FILE_SEPARATOR + Consts.POM_XML;
+	private static final String FILE_URI = Consts.HDFS_USER_HOME + Consts.FILE_SEPARATOR + Consts.POM_XML;
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();

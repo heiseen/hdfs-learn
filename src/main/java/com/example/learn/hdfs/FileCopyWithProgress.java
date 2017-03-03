@@ -46,7 +46,7 @@ public class FileCopyWithProgress {
 		String second = to2DigitsString(dateTime.getSecond());
 		String hms = hour + minute + second;
 		return Joiner.on(Consts.FILE_SEPARATOR)
-				.appendTo(builder, Consts.HDFS_URI_PREFIX, year, month, day, hms, Consts.POM_XML).toString();
+				.appendTo(builder, Consts.HDFS_USER_HOME, year, month, day, hms, Consts.POM_XML).toString();
 	}
 
 	static String to2DigitsString(int i) {
