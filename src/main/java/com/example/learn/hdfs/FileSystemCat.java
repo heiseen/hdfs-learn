@@ -8,11 +8,12 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
 
+import com.example.learn.hdfs.consts.Consts;
+
 public class FileSystemCat {
-	
-	private static final String FILE_NAME = "startup.sh";
-	private static final String FILE_URI = Consts.URI_PREFIX + Consts.FILE_SEPARATOR + FILE_NAME;
-	
+
+	private static final String FILE_URI = Consts.HDFS_URI_PREFIX + Consts.FILE_SEPARATOR + Consts.POM_XML;
+
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		FileSystem fs = FileSystem.get(URI.create(FILE_URI), conf);

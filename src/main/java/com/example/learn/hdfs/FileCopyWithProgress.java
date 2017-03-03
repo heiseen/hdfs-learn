@@ -13,15 +13,14 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.util.Progressable;
 
+import com.example.learn.hdfs.consts.Consts;
 import com.google.common.base.Joiner;
 
 public class FileCopyWithProgress {
 
-	private static final String FILE_NAME = "pom.xml";
-
 	public static void main(String[] args) throws Exception {
-		String localSrc = FILE_NAME;
-		String dst = newFileUri();
+		String localSrc = Consts.POM_XML;
+		String dst = Consts.HDFS_URI_PREFIX + Consts.FILE_SEPARATOR + Consts.POM_XML;
 		InputStream in = new BufferedInputStream(new FileInputStream(localSrc));
 
 		Configuration conf = new Configuration();
@@ -37,7 +36,7 @@ public class FileCopyWithProgress {
 		IOUtils.copyBytes(in, out, 4096, true);
 	}
 
-	static String newFileUri() {
+	static String newNowFileUri() {
 		StringBuilder builder = new StringBuilder();
 		LocalDateTime dateTime = LocalDateTime.now();
 		String year = Integer.toString(dateTime.getYear());
@@ -47,8 +46,8 @@ public class FileCopyWithProgress {
 		String minute = to2DigitsString(dateTime.getMinute());
 		String second = to2DigitsString(dateTime.getSecond());
 		String hms = hour + minute + second;
-		return Joiner.on(Consts.FILE_SEPARATOR).appendTo(builder, Consts.URI_PREFIX, year, month, day, hms, FILE_NAME)
-				.toString();
+		return Joiner.on(Consts.FILE_SEPARATOR)
+				.appendTo(builder, Consts.HDFS_URI_PREFIX, year, month, day, hms, Consts.POM_XML).toString();
 	}
 
 	static String to2DigitsString(int i) {
