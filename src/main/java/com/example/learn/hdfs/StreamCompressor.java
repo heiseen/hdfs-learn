@@ -20,9 +20,11 @@ public class StreamCompressor {
 		Configuration conf = new Configuration();
 		CompressionCodec codec = (CompressionCodec) ReflectionUtils.newInstance(codecClass, conf);
 		InputStream in = new FileInputStream(Consts.POM_XML);
+		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		CompressionOutputStream out = codec.createOutputStream(baos);
 		IOUtils.copyBytes(in, out, 4096, false);
+		
 		in.close();
 		out.finish();
 		byte[] compressedBytes = baos.toByteArray();
