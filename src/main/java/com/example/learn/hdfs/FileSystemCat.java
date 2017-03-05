@@ -12,12 +12,10 @@ import com.example.learn.hdfs.consts.Consts;
 
 public class FileSystemCat {
 
-	private static final String FILE_URI = Consts.HDFS_USER_HOME + Consts.FILE_SEPARATOR + Consts.POM_XML;
-
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		FileSystem fs = FileSystem.get(URI.create(FILE_URI), conf);
-		Path path = new Path(FILE_URI);
+		FileSystem fs = FileSystem.get(URI.create(Consts.POM_XML_HDFS_URI), conf);
+		Path path = new Path(Consts.POM_XML_HDFS_URI);
 		try (InputStream in = fs.open(path)) {
 			IOUtils.copyBytes(in, System.out, 4096, false);
 		}
