@@ -16,9 +16,9 @@ import com.example.learn.hdfs.consts.Consts;
 
 public class FileCompression {
 
-	private final FileBackupConfig config;
+	private final FileCompressionConfig config;
 
-	public FileCompression(FileBackupConfig config) throws ClassNotFoundException {
+	public FileCompression(FileCompressionConfig config) throws ClassNotFoundException {
 		this.config = config;
 	}
 
@@ -30,45 +30,21 @@ public class FileCompression {
 		String fromPath = Consts.POM_XML_HDFS_URI;
 		String toPath = fromPath.replace(Consts.HDFS_USER_HOME, Consts.HDFS_USER_HOME + "/backup") + ".gz";
 
-		FileBackupConfig conf = new FileBackupConfig(codec, fileSystem);
+		FileCompressionConfig conf = new FileCompressionConfig(codec, fileSystem);
 		FileCompression backup = new FileCompression(conf);
-		backup.compressAndSave(fromPath, toPath);
+		backup.processFile(fromPath, toPath);
 	}
 
-	void compressAndSave(String from, String to) {
+	void processFile(String from, String to) throws IOException {
 		Path fromPath = new Path(from);
 		Path toPath = new Path(to);
-		compressAndSave(fromPath, toPath);
+		processFile(fromPath, toPath);
 	}
 
-	void compressAndSave(Path fromPath, Path toPath) {
-		InputStream in = null;
-		CompressionOutputStream out = null;
-		try {
-			in = newInputStream(fromPath);
-			out = newOutputStream(toPath);
-			IOUtils.copyBytes(in, out, 4096, false);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (out != null) {
-				try {
-					out.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
+	void processFile(Path fromPath, Path toPath) throws IOException {
+		InputStream in = newInputStream(fromPath);
+		CompressionOutputStream out = newOutputStream(toPath);
+		IOUtils.copyBytes(in, out, config.bufferSize, true);
 	}
 
 	InputStream newInputStream(Path path) throws IOException {
