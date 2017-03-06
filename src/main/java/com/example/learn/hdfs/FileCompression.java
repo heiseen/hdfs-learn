@@ -30,9 +30,13 @@ public class FileCompression {
 		String fromPath = Consts.POM_XML_HDFS_URI;
 		String toPath = fromPath.replace(Consts.HDFS_USER_HOME, Consts.HDFS_USER_HOME + "/backup") + ".gz";
 
+		// compress and save the compressed file into HDFS
 		FileCompressionConfig conf = new FileCompressionConfig(codec, fileSystem);
 		FileCompression backup = new FileCompression(conf);
 		backup.processFile(fromPath, toPath);
+		
+		// close FileSystem
+		fileSystem.close();
 	}
 
 	void processFile(String from, String to) throws IOException {

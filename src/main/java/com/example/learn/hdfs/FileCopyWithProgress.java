@@ -32,7 +32,10 @@ public class FileCopyWithProgress {
 		});
 		System.out.println();
 
-		IOUtils.copyBytes(in, out, 4096, true);
+		IOUtils.copyBytes(in, out, 4096, true);// close FileSystem
+
+		// close FileSystem
+		fs.close();
 	}
 
 	static String newNowFileUri() {

@@ -19,6 +19,9 @@ public class FileSystemCat {
 		try (InputStream in = fs.open(path)) {
 			IOUtils.copyBytes(in, System.out, 4096, false);
 		}
+
+		// close FileSystem
+		fs.close();
 	}
 
 }

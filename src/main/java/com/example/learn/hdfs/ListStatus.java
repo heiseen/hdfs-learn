@@ -23,6 +23,9 @@ public class ListStatus {
 		for (Path p : listedPaths) {
 			System.out.println(p);
 		}
+
+		// close FileSystem
+		fs.close();
 	}
 
 }

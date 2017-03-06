@@ -21,6 +21,9 @@ public class FileSystemDoubleCat {
 			in.seek(0);
 			IOUtils.copyBytes(in, System.out, 4096, false);
 		}
+
+		// close FileSystem
+		fs.close();
 	}
 
 }
