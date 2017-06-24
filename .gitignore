@@ -20,4 +20,5 @@ pom.xml.next
 release.properties
 
 # customized
-.DS_Store
+*.DS_Store
+
